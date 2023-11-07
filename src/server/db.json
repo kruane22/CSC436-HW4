@@ -1,0 +1,201 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Katie",
+      "password": "test"
+    },
+    {
+      "email": "Aviv@gmail.com",
+      "password": "$2a$10$83GCaXL0urThJUsMV1Mp8eogOTWNP0Yx5Ci/2Qutc/FrVneUskqze",
+      "id": 2
+    },
+    {
+      "email": "Katie@att.net",
+      "password": "$2a$10$jbtHWjEbmqz1d8mtZ5BjM.Qbqv8fPFcBzN6tEvZGAUO0UXn5oq6ce",
+      "id": 3
+    },
+    {
+      "email": "Katie@att.nett",
+      "password": "$2a$10$95t1WfpuilGnEjqtO0INp.vKXV75UN10eRd./V6CU7GI.Z75OUKai",
+      "id": 4
+    },
+    {
+      "email": "aa@aaa.a",
+      "password": "$2a$10$voqZpotDd.XJaHgbJVtNGeHwbe43U4oOu8gpjWvbdr5e692wkRsCe",
+      "id": 5
+    },
+    {
+      "email": "test@test.com",
+      "password": "$2a$10$oOmfMdKSGCTcJ1w2.T6LEOEUa7GXhUAEDKDHVqV6/8C7tMATr4pWq",
+      "id": 6
+    },
+    {
+      "email": "katie@test.com",
+      "password": "$2a$10$oEzG1WX2vwwN.rxlb9fDAufRW0hGcxaRB0LJw01fIPw.koEVJHoVC",
+      "id": 7
+    },
+    {
+      "email": "aviv@test.com",
+      "password": "$2a$10$jaahqhW6KsdvvPKyXJco/OnXR78RXpT1sq4fU5C89b.RdFy7HHAxm",
+      "id": 8
+    },
+    {
+      "email": "123@test.com",
+      "password": "$2a$10$ZX4d2kzlrvEBIYMPWNR0.O7Dt3dk/lxrikagAnXR79ZAWSL3jGu3m",
+      "id": 9
+    }
+  ],
+  "listItem": [
+    {
+      "id": 1,
+      "title": "title",
+      "description": "description",
+      "author": "Katie"
+    },
+    {
+      "title": "title",
+      "description": "description",
+      "author": "Katie",
+      "id": 2
+    },
+    {
+      "title": "title",
+      "description": "description",
+      "author": "Katie",
+      "id": 3
+    },
+    {
+      "title": "title",
+      "description": "description",
+      "author": "Katie",
+      "id": 4
+    },
+    {
+      "title": "Title",
+      "description": "Words",
+      "id": 5
+    },
+    {
+      "title": "POST NOW",
+      "description": "NOWWWW",
+      "id": 6
+    },
+    {
+      "title": "dd",
+      "description": "ds",
+      "id": 7
+    },
+    {
+      "title": "title",
+      "description": "description",
+      "author": "Katie",
+      "id": 8
+    },
+    {
+      "title": "a",
+      "description": "a",
+      "id": 9
+    },
+    {
+      "title": "11",
+      "description": "11",
+      "id": 10
+    },
+    {
+      "title": "Title",
+      "description": "OUT",
+      "id": 11
+    },
+    {
+      "title": "TRY",
+      "description": "THIS",
+      "id": 12
+    },
+    {
+      "title": "asdf",
+      "description": "asdf",
+      "id": 13
+    },
+    {
+      "title": "jjj",
+      "description": "ll",
+      "id": 14
+    },
+    {
+      "title": "pp",
+      "description": "kk",
+      "id": 15
+    },
+    {
+      "title": "Title",
+      "description": "2",
+      "id": 16
+    },
+    {
+      "title": "TESTPOST",
+      "description": "KEEP AUTHOR?",
+      "author": "test@test.com",
+      "dateSet": "Monday, November 6th 2023, 7:37:17 pm",
+      "id": "fac2c6ad-a66a-4c19-a0f7-c7c91f64af33",
+      "complete": true
+    },
+    {
+      "title": "NEXT TEST",
+      "description": "LOOKIE",
+      "author": "test@test.com",
+      "dateSet": "Monday, November 6th 2023, 7:41:15 pm",
+      "id": "f2f402ef-cd5e-4579-91b9-ef74ad1dac43",
+      "complete": true
+    },
+    {
+      "title": "1",
+      "description": "111",
+      "author": "katie@test.com",
+      "dateSet": "Monday, November 6th 2023, 7:57:48 pm",
+      "id": "4d01ed94-db43-463e-b8fb-9c00bc85d59c"
+    },
+    {
+      "title": "Title",
+      "description": "Words",
+      "author": "test@test.com",
+      "complete": true,
+      "dateSet": "Monday, November 6th 2023, 8:53:01 pm",
+      "id": "1e1a8bc5-086a-4348-9043-614c918d740d"
+    },
+    {
+      "complete": true,
+      "id": 17
+    },
+    {
+      "complete": true,
+      "id": 18
+    },
+    {
+      "title": "first",
+      "description": "yes",
+      "author": "aviv@test.com",
+      "complete": false,
+      "dateSet": "Monday, November 6th 2023, 9:21:17 pm",
+      "id": "0ece9460-8576-478f-8c31-c3462a1f85dd",
+      "dateComplete": ""
+    },
+    {
+      "title": "second",
+      "description": "not done",
+      "author": "aviv@test.com",
+      "complete": true,
+      "dateSet": "Monday, November 6th 2023, 9:21:32 pm",
+      "id": "38b0194d-91b9-43f2-81cf-e69c396eb9c1",
+      "dateComplete": "Completed on: Monday, November 6th 2023, 10:09:16 pm"
+    },
+    {
+      "title": "Second",
+      "description": "Post",
+      "author": "123@test.com",
+      "complete": false,
+      "dateSet": "Tuesday, November 7th 2023, 7:59:20 am",
+      "id": "8e871252-c60e-4c74-a36e-f3313d276838"
+    }
+  ]
+}
