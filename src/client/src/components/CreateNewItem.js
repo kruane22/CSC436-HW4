@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { StateContext } from "../contexts";
 import { v4 as uuidv4 } from 'uuid';
 import { useResource } from "react-request-hook";
@@ -11,23 +11,26 @@ const CreateNewItem = () => {
   const [description, setDescription] = useState("");
 
   const {state, dispatch} = useContext(StateContext);
+
   const {user} = state;
 
-  const [listItem, createListItem] = useResource(({title, description, author, dateSet, id}) => {
-    const complete = false;
-    
+  let complete = false;
+
+  const [listItem, createListItem] = useResource(({title, description, author, dateSet, complete}) => {
     return ({ 
-    url: "/listItem",
+    url: "/post",
     method: "post",
-    data: {title, description, author, complete, dateSet, id},
+    data: {title, description, author, complete, dateSet},
+    headers: { Authorization: `${state?.user?.access_token}` },
   })
 }
   );
+  
 
   const handleChange = (event) => {
-    if (event.target.name == "postTitle") {
+    if (event.target.name === "postTitle") {
       setTitle(event.target.value);
-    } else if (event.target.name == "postDescription") {
+    } else if (event.target.name === "postDescription") {
       setDescription(event.target.value);
     }
   };
@@ -35,17 +38,27 @@ const CreateNewItem = () => {
   const formSubmit = (e) => {
     e.preventDefault();
 
-    const newItem = {
+    let newItem = {
         title: title,
         description: description,
-        author: user,
+        author: user.username,
         dateSet: moment().format("dddd, MMMM Do YYYY, h:mm:ss a"),
-        id: uuidv4()
+        complete:complete,
+        id: uuidv4(),
     }
     createListItem(newItem);
-    dispatch( {type: "CREATE_TODO", payload: {listItem:newItem,author:user} })
     resetItem()
   };
+  
+  useEffect(() => {
+    if (listItem.isLoading === false && listItem.data){
+      dispatch({type: "CREATE_TODO", payload: {
+        title: listItem.data.title,
+        description: listItem.data.description,
+        id: listItem.data.id,
+        author: user.username,}});
+    }
+  }, [listItem]);
 
   const resetItem = () => {
     setDescription("")

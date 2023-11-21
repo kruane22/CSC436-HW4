@@ -8,60 +8,54 @@ import { useResource } from "react-request-hook";
 const ListComponent = ({ listItem }) => {
   const { state, dispatch } = useContext(StateContext);
 
- 
+  let author = state.user.user;
 
-  const [todoList, changeToggle] = useResource((id) => {
-    console.log("inside changeToggle");
-    console.log(state);
-    let changedItem = state.listItem.filter((item) => item.id == id)[0];
-    let { title, description, author, complete, dateSet, dateComplete } =
-      changedItem;
-    //
+  const [todoList, changeToggle] = useResource((_id) => {
+    let changedItem = state.listItem.filter((item) => item._id === _id)[0];
+    let { complete, dateComplete } = changedItem;
     return {
-      url: `/listItem/${id}`,
+      url: `/post/${_id}`,
       method: "patch",
-      data: { title, description, author, complete, dateSet, id, dateComplete },
+      data: { complete, dateComplete },
+      headers: { Authorization: `${state?.user?.access_token}` },
     };
   });
 
-  const checkBox = (id) => {
-    dispatch({ type: "CHECK_COMPLETE", payload: id });
-    setTimeout(()=>{changeToggle(id)},[1000])
+  const checkBox = (_id) => {
+    dispatch({ type: "CHECK_COMPLETE", payload: _id });
+    setTimeout(()=>{changeToggle(_id)},[1000])
   };
 
-  const [deleteToDo, deleteToDoItem] = useResource((id) => {
-    console.log("inside deleteToDoItem");
-    console.log(state);
-    
+  const [deleteToDo, deleteToDoItem] = useResource((_id) => {
     return {
-      url: `/listItem/${id}`,
+      url: `/post/${_id}`,
       method: "delete",
+      data: { _id },
+      headers: { Authorization: `${state?.user?.access_token}` },
     };
   });
 
-  const deleteItem = (id) => {
-    dispatch({ type: "DELETE_TODO", payload: id })
-    setTimeout(()=>{deleteToDoItem(id)},[1000])
+  const deleteItem = (_id) => {
+    dispatch({ type: "DELETE_TODO", payload: _id })
+    setTimeout(()=>{deleteToDoItem(_id)},[1000])
   };
 
   return (
     <Wrapper>
       {listItem.map((element, index) => {
         const {
-          id,
+          _id,
           title,
           description,
-          author,
           dateSet,
           complete,
           dateComplete,
         } = element;
-
         const key = index;
 
         return (
           <ListItem
-            id={id}
+            id={_id}
             key={key}
             title={title}
             description={description}
@@ -69,8 +63,8 @@ const ListComponent = ({ listItem }) => {
             dateCreated={dateSet}
             complete={complete}
             dateComplete={dateComplete}
-            handleCompletedBox={() => checkBox(id)}
-            handleDelete={() => deleteItem(id)}
+            handleCompletedBox={() => checkBox(_id)}
+            handleDelete={() => deleteItem(_id)}
           />
         );
       })}

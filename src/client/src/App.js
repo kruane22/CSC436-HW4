@@ -15,18 +15,12 @@ function App() {
   //     .then((listItem) => dispatch({ type: "FETCH_TODO", listItem }));
   // }, []);
 
-  const [ toDoListItem, getToDoListItem ] = useResource(() => ({
-    url: '/listItem',
-    method: 'get',
-  }))
-
-  
-  useEffect(() => {
-    if (toDoListItem && toDoListItem.data){
-      const filteredToDoList = toDoListItem.data.reverse().filter((item) => item.author == user)
-      dispatch({ type: "FETCH_TODO", listItem: filteredToDoList })
-    }
-  }, [toDoListItem]);
+  // useEffect(() => {
+  //   if (toDoListItem && toDoListItem.data){
+  //     const filteredToDoList = toDoListItem.data.reverse().filter((item) => item.author == user)
+  //     dispatch({ type: "FETCH_TODO", listItem: filteredToDoList })
+  //   }
+  // }, [toDoListItem]);
   
   const [state, dispatch] = useReducer(appReducer, {
     user: "",
@@ -34,8 +28,39 @@ function App() {
   })
   
   let {listItem, user} = state;
-  
-  useEffect(getToDoListItem, [user]);
+
+  const [ toDoListItem, getToDoListItem ] = useResource(() => ({
+    url: '/post',
+    method: 'get',
+    headers: { Authorization: `${state?.user?.access_token}` },
+  }))
+
+  // useEffect(getToDoListItem, [user]);
+
+  useEffect(() => {
+    getToDoListItem();
+  }, [state?.user?.access_token]);
+  useEffect(() => {
+    if (
+      toDoListItem &&
+      toDoListItem.isLoading === false &&
+      toDoListItem.data
+    ) {
+     
+      dispatch({
+        type: "FETCH_TODO",
+        listItem: toDoListItem.data.reverse(),
+      });
+    }
+  }, [toDoListItem]);
+
+  useEffect(() => {
+    if (user) {
+      document.title = `${user.user}’s Blog`;
+    } else {
+      document.title = "Blog";
+    }
+  }, [user]);
 
   return (
     <div className="App">

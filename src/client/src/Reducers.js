@@ -3,8 +3,10 @@ import moment from 'moment';
 function userReducer(state, action) {
     switch (action.type) {
       case "LOGIN":
-      case "REGISTER":
-        return action.user
+        return {
+          user: action.user,
+          access_token: action.access_token,
+        };
       case "LOGOUT":
         return "";
       default:
@@ -16,15 +18,16 @@ function userReducer(state, action) {
     switch (action.type) {
       case "CREATE_TODO":
         const newToDo = {
-          title: action.payload.listItem.title,
-          description: action.payload.listItem.description,
+          title: action.payload.title,
+          description: action.payload.description,
           author: action.payload.author,
-          dateSet: action.payload.listItem.dateSet,
-          id: action.payload.listItem.id,
+          dateSet: action.payload.dateSet,
+          id: action.payload.id,
           complete: false,
+          // _id: action.payload.listItem._id,
         };
+        console.log(newToDo);
         return [newToDo, ...state];
-        
       case "FETCH_TODO":
         return action.listItem;
 
@@ -34,8 +37,8 @@ function userReducer(state, action) {
       case "CHECK_COMPLETE":
         const completeID=action.payload
         const temporaryList = state.map((e) => {
-          if (e.id == completeID) {
-            let dateComplete = e.complete==false ? `Completed on: ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}` : "";
+          if (e._id === completeID) {
+            let dateComplete = e.complete===false ? `Completed on: ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}` : "";
             return {
                     ...e,
                     complete: !e.complete,
@@ -47,7 +50,7 @@ function userReducer(state, action) {
           
       case "DELETE_TODO":
         const deleteID=action.payload
-        const filteredArray = state.filter((e) => {return e.id != deleteID})
+        const filteredArray = state.filter((e) => {return e._id !== deleteID})
         return filteredArray;
       default:
         return state;

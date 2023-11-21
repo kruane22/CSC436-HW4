@@ -11,10 +11,9 @@ export default function Logout() {
         dispatch ( {type: "LOGOUT"} );
         dispatch ( {type: "CLEAR_LIST"} );
     }
-
     return (
     <form onSubmit={formSubmit}>
-        Logged in as: <b>{user}</b>
+        Logged in as: <b>{user.user}</b>
         <input type="submit" value="Logout" />
     </form>
     )

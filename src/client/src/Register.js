@@ -1,34 +1,52 @@
-import { useState, useContext, useEffect } from "react";
-import { StateContext } from "./contexts";
+import { useState, useEffect } from "react";
+// import { StateContext } from "./contexts";
 import { useResource } from "react-request-hook";
 
 export default function Register() {
+    const [status, setStatus] = useState("");
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
-    const {dispatch} = useContext(StateContext);
 
-    const [userName, register] = useResource((user, password) =>{
-        console.log("running useResource")
-        return ({
-        url: "/users",
+    const [username, register] = useResource((username, password) => ({
+        url: "/auth/register",
         method: "post",
-        data: { email: user, password },
-        })});
+        data: { username, password, passwordConfirmation: password },
+      }));
+
+    // const {dispatch} = useContext(StateContext);
+    // const [userName, register] = useResource((user, password) =>{
+    //     return ({
+    //     url: "/auth/register",
+    //     method: "post",
+    //     data: { userName: user, password, passwordConfirmation: repeatPassword },
+    //     })});
+
+    // useEffect(() => {
+    //     if (userName && userName.data) {
+    //         console.log(userName.data.user.email);
+    //         dispatch({ type: "REGISTER", user: userName.data.user.email })
+    //     }
+    // }, [userName, dispatch]);
 
     useEffect(() => {
-        if (userName && userName.data) {
-            console.log(userName.data.user.email);
-            dispatch({ type: "REGISTER", user: userName.data.user.email })
+        if (username && username.isLoading === false && (username.data || username.error)) {
+          if (username.error) {
+            setStatus("Registration failed, please try again later.");
+          } else {
+            setStatus("Registration successful. You may now login.");
+          }
         }
-    }, [userName, dispatch]);
+      }, [username]);
+
+
 
     const handleChange = (event) => {
-        if (event.target.name == "registerName") {
+        if (event.target.name === "registerName") {
             setUser(event.target.value);
-        } else if (event.target.name == "registerPassword") {
+        } else if (event.target.name === "registerPassword") {
             setPassword(event.target.value);
-        } else if (event.target.name == "registerRepeat"){
+        } else if (event.target.name === "registerRepeat"){
             setRepeatPassword(event.target.value);
         }
     }
@@ -39,10 +57,6 @@ export default function Register() {
             user:user,
             password:password
         }
-        console.log("in form submit in Register")
-        console.log(newUser);
-        console.log(user);
-        console.log(password);
         register(user, password);
         //dispatch( {type: "REGISTER", payload: {author:user}} );
     }
@@ -60,7 +74,8 @@ export default function Register() {
         <input type="password" value={repeatPassword}name="registerRepeat" 
         onChange={handleChange} />
         
-        <input type="submit" value="Register" disabled={user&&(password==repeatPassword)&&password?false:true} />
+        <input type="submit" value="Register" disabled={user&&(password===repeatPassword)&&password?false:true} />
+    {status && <p>{status}</p>}
     </form>
     )
 }
