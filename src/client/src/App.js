@@ -36,11 +36,7 @@ function App() {
   }))
 
   useEffect(() => {
-    console.log("first");
-    console.log(state?.listItem);
     getToDoListItem();
-    console.log("second");
-  console.log(state?.listItem);
   }, [state?.user?.access_token]);
 
   useEffect(() => {

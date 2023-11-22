@@ -21,7 +21,6 @@ router.use(function (req, res, next) {
 });
 
 router.post("/", async function (req, res) {
-console.log(req.body);
   const post = new Post({
     title: req.body.title,
     description: req.body.description,
@@ -30,11 +29,9 @@ console.log(req.body);
     complete: req.body.complete,
     dateComplete: req.body.dateComplete
   });
-  console.log(post)
   post
     .save()
     .then((savedPost) => {
-      console.log(savedPost)
       return res.status(201).json({
         id: savedPost._id,
         title: savedPost.title,
@@ -63,8 +60,6 @@ router.get("/", async function (req, res) {
 });
 
 router.patch("/:id", async function (req, res) {
-  console.log(req.body)
-  console.log(req.params.id)
   try{
 
     const post = await Post.findByIdAndUpdate(req.params.id, req.body, {

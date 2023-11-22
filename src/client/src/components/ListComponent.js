@@ -7,15 +7,11 @@ import { useResource } from "react-request-hook";
 
 const ListComponent = () => {
   const { state, dispatch } = useContext(StateContext);
-  console.log("inside listComponent")
-  console.log(state)
 let {listItem}= state
-console.log(listItem)
   let author = state.user.user;
 
   const [todoList, changeToggle] = useResource((_id) => {
     let changedItem = state.listItem.filter((item) => (item._id === _id||item.id==_id))[0];
-    console.log(changedItem);
      let { complete, dateComplete } = changedItem;
     return {
       url: `/post/${_id}`,
@@ -26,8 +22,6 @@ console.log(listItem)
   });
 
   const checkBox = (idToUse) => {
-    console.log("inside checkbox");
-    console.log(idToUse)
     dispatch({ type: "CHECK_COMPLETE", payload: idToUse });
     setTimeout(()=>{changeToggle(idToUse)},[1000])
   };
@@ -59,10 +53,7 @@ console.log(listItem)
           dateComplete,
         } = element;
         const key = index;
-let idToUse = _id?_id:id
-console.log(index)
-console.log(_id,title,id);
-
+    let idToUse = _id?_id:id
         return (
           <ListItem
             id={idToUse}

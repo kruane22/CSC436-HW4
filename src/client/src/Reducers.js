@@ -24,9 +24,7 @@ function todoReducer(state, action) {
         dateSet: action.payload.dateSet,
         id: action.payload.id,
         complete: false,
-        // _id: action.payload.listItem._id,
       };
-      console.log(newToDo);
       return [newToDo, ...state];
     case "FETCH_TODO":
       return action.listItem;
