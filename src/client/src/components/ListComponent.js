@@ -5,14 +5,18 @@ import ListItem from "./ListItem";
 import styled from "styled-components";
 import { useResource } from "react-request-hook";
 
-const ListComponent = ({ listItem }) => {
+const ListComponent = () => {
   const { state, dispatch } = useContext(StateContext);
-
+  console.log("inside listComponent")
+  console.log(state)
+let {listItem}= state
+console.log(listItem)
   let author = state.user.user;
 
   const [todoList, changeToggle] = useResource((_id) => {
-    let changedItem = state.listItem.filter((item) => item._id === _id)[0];
-    let { complete, dateComplete } = changedItem;
+    let changedItem = state.listItem.filter((item) => (item._id === _id||item.id==_id))[0];
+    console.log(changedItem);
+     let { complete, dateComplete } = changedItem;
     return {
       url: `/post/${_id}`,
       method: "patch",
@@ -21,9 +25,11 @@ const ListComponent = ({ listItem }) => {
     };
   });
 
-  const checkBox = (_id) => {
-    dispatch({ type: "CHECK_COMPLETE", payload: _id });
-    setTimeout(()=>{changeToggle(_id)},[1000])
+  const checkBox = (idToUse) => {
+    console.log("inside checkbox");
+    console.log(idToUse)
+    dispatch({ type: "CHECK_COMPLETE", payload: idToUse });
+    setTimeout(()=>{changeToggle(idToUse)},[1000])
   };
 
   const [deleteToDo, deleteToDoItem] = useResource((_id) => {
@@ -44,6 +50,7 @@ const ListComponent = ({ listItem }) => {
     <Wrapper>
       {listItem.map((element, index) => {
         const {
+         id,
           _id,
           title,
           description,
@@ -52,10 +59,13 @@ const ListComponent = ({ listItem }) => {
           dateComplete,
         } = element;
         const key = index;
+let idToUse = _id?_id:id
+console.log(index)
+console.log(_id,title,id);
 
         return (
           <ListItem
-            id={_id}
+            id={idToUse}
             key={key}
             title={title}
             description={description}
@@ -63,8 +73,8 @@ const ListComponent = ({ listItem }) => {
             dateCreated={dateSet}
             complete={complete}
             dateComplete={dateComplete}
-            handleCompletedBox={() => checkBox(_id)}
-            handleDelete={() => deleteItem(_id)}
+            handleCompletedBox={() => checkBox(idToUse)}
+            handleDelete={() => deleteItem(idToUse)}
           />
         );
       })}

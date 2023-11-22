@@ -46,7 +46,8 @@ const CreateNewItem = () => {
         complete:complete,
         id: uuidv4(),
     }
-    createListItem(newItem);
+    createListItem(newItem)
+
     resetItem()
   };
   
@@ -56,7 +57,8 @@ const CreateNewItem = () => {
         title: listItem.data.title,
         description: listItem.data.description,
         id: listItem.data.id,
-        author: user.username,}});
+        author: user.username,
+        dateSet: listItem.data.dateSet,}});
     }
   }, [listItem]);
 
